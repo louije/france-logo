@@ -44,7 +44,7 @@ function innerPoints() {
     return {
       x: v.x,
       y: v.y,
-      weight: random(20, 30),
+      weight: noisify(25, idx, 10),
       color: color(h + n, 80, 75)
     };
   });
@@ -57,7 +57,7 @@ function centerPoint() {
       x: centerX,
       y: centerY,
       weight: 40,
-      color: color(220, 100, random(25, 100))
+      color: color(220, 100, noisify(66, 0, 60))
     }
   ]
 }
