@@ -14,7 +14,7 @@ function draw() {
   points = points.concat(centerPoint());
   points = points.concat(innerPoints());
   points = points.concat(noisyPoints());
-  points = points.concat(randomPoint());
+  points = points.concat(randomPoint(random(1, 5)));
   points = points.concat(outerPoints());
   points.forEach(drawPoint);
 }
@@ -64,7 +64,7 @@ function centerPoint() {
 }
 
 function noisyPoints(parity = 0) {
-  const p = hexVertices(noisify(60, parity, 20), centerX, centerY, noisify(0, 0, TWO_PI / 6)).map((v, idx) => {
+  const p = hexVertices(noisify(60, parity, 40), centerX, centerY, noisify(0, 0, TWO_PI / 6)).map((v, idx) => {
     const h = noisify(128, idx, 360);
     return {
       x: noisify(v.x, idx, 20),
@@ -76,9 +76,12 @@ function noisyPoints(parity = 0) {
   return p;
 }
 
-function randomPoint() {
-  const p = noisyPoints(random());
-  return [random(p)];
+function randomPoint(times = 1) {
+  const pp = [];
+  for (let i = 0; i < times; i++) {
+    pp.push(random(noisyPoints(random())));
+  }
+  return pp;
 }
 
 function hexVertices(radius, centerX, centerY, startAngle = PI / 6) {
